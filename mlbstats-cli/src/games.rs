@@ -1,5 +1,13 @@
 use mlbstats::{games::Game, params::QueryParams, schedule::ScheduleResponse};
-use tabled::{Alignment, Columns, Disable, Header, MinWidth, Modify, Table, Tabled};
+use tabled::{
+    settings::{
+        object::{Columns, Rows},
+        panel::Header,
+        width::MinWidth,
+        Alignment, Disable, Modify,
+    },
+    Table, Tabled,
+};
 
 use crate::{commands::ScoreboardOpts, error::CLIError};
 
@@ -27,10 +35,11 @@ fn create_score_box(game: &Game) -> Table {
         },
     ];
     Table::new(score)
-        .with(Disable::Row(..1))
+        .with(Disable::row(Rows::new(..1)))
         .with(MinWidth::new(35))
         .with(Modify::new(Columns::new(1..=2)).with(Alignment::center()))
-        .with(Header(game_status(game)))
+        .with(Header::new(game_status(game)))
+        .to_owned()
 }
 
 fn game_status(game: &Game) -> String {

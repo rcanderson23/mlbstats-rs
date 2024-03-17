@@ -1,9 +1,10 @@
-use std::{str::FromStr, fmt::Display};
+use std::{fmt::Display, str::FromStr};
 
-use clap::{ArgEnum, Args, Parser, Subcommand};
+use clap::{Args, Parser, Subcommand, ValueEnum};
 use mlbstats::{
     league::MLBLeague,
-    stats::types::{LeagueLeaderTypes, StatGroup}, teams::MLBTeam,
+    stats::types::{LeagueLeaderTypes, StatGroup},
+    teams::MLBTeam,
 };
 
 use crate::error::CLIError;
@@ -54,7 +55,7 @@ pub struct StandingsOpts {
 
 #[derive(Args, Clone, Debug)]
 pub struct LeadersOpts {
-    #[clap(arg_enum)]
+    #[clap()]
     pub stat: Stat,
 
     /// League abbreviation (AL or NL)
@@ -66,7 +67,7 @@ pub struct LeadersOpts {
     pub limit: u32,
 }
 
-#[derive(ArgEnum, Clone, Debug)]
+#[derive(ValueEnum, Clone, Debug)]
 pub enum Stat {
     /// Home Runs
     HR,
@@ -78,7 +79,7 @@ pub enum Stat {
     AVG,
     /// Earned Run Average
     ERA,
-    /// Saves 
+    /// Saves
     Saves,
 }
 

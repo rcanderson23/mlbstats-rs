@@ -1,5 +1,8 @@
 use mlbstats::{games::GameTypes, stats::stats_leaders::StatsLeadersResponse};
-use tabled::{Header, MinWidth, Table, Tabled};
+use tabled::{
+    settings::{panel::Header, width::MinWidth},
+    Table, Tabled,
+};
 
 use crate::{commands::LeadersOpts, error::CLIError};
 
@@ -16,7 +19,8 @@ struct StatRank {
 fn create_leaders_table(stat: &str, stat_ranks: &Vec<StatRank>) -> Table {
     Table::new(stat_ranks)
         .with(MinWidth::new(50))
-        .with(Header(stat))
+        .with(Header::new(stat))
+        .to_owned()
 }
 
 pub async fn league_leaders(opts: LeadersOpts) -> Result<(), CLIError> {

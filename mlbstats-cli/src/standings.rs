@@ -1,6 +1,9 @@
 use chrono::{Datelike, NaiveDate};
 use mlbstats::{division::MLBDivision, league::MLBLeague, standings::StandingsResponse};
-use tabled::{Header, MinWidth, Table, Tabled};
+use tabled::{
+    settings::{panel::Header, width::MinWidth},
+    Table, Tabled,
+};
 
 use crate::{commands::StandingsOpts, error::CLIError};
 
@@ -17,7 +20,8 @@ struct TeamRecord {
 fn create_standings_table(division: MLBDivision, teams: Vec<TeamRecord>) -> Table {
     Table::new(teams)
         .with(MinWidth::new(50))
-        .with(Header(division.short_name()))
+        .with(Header::new(division.short_name()))
+        .to_owned()
 }
 
 pub async fn standings(opts: StandingsOpts) -> Result<(), CLIError> {
