@@ -4,7 +4,7 @@ use tabled::{
         object::{Columns, Rows},
         panel::Header,
         width::MinWidth,
-        Alignment, Disable, Modify,
+        Alignment, Modify, Remove,
     },
     Table, Tabled,
 };
@@ -35,7 +35,7 @@ fn create_score_box(game: &Game) -> Table {
         },
     ];
     Table::new(score)
-        .with(Disable::row(Rows::new(..1)))
+        .with(Remove::row(Rows::new(..1)))
         .with(MinWidth::new(35))
         .with(Modify::new(Columns::new(1..=2)).with(Alignment::center()))
         .with(Header::new(game_status(game)))

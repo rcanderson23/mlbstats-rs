@@ -10,14 +10,14 @@ authors = ["Carson Anderson <rcanderson23@gmail.com>"]
 team_funcs = []
 
 [dependencies]
-anyhow = "1.0.81"
+anyhow = "1.0.98"
 chrono = "0.4.35"
-reqwest = { version = "0.11.26", features = ["json"] }
+reqwest = { version = "0.12.22", features = ["json"] }
 serde = { version = "1", features = ["derive"] }
-serde_qs = "0.12.0"
+serde_qs = "0.15.0"
 serde_url_params = "0.2.1"
-thiserror = "1.0.58"
-tokio = { version = "1.36.0", features = ["full"] }
+thiserror = "2.0.12"
+tokio = { version = "1.46.1", features = ["full"] }
 
 [lib]
 name = "mlbstats"
@@ -25,4 +25,4 @@ path = "src/lib.rs"
 
 [dev-dependencies]
 serde_urlencoded = "0.7.1"
-serde_test = "1.0.117"
+serde_test = "1.0.177"
