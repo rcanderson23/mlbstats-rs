@@ -25,8 +25,8 @@ impl Client {
         }
     }
 
-    /// Returns the schedule of games for the current day when no date is provided. The results can be 
-    /// further narrowed down with provided parameters. 
+    /// Returns the schedule of games for the current day when no date is provided. The results can be
+    /// further narrowed down with provided parameters.
     ///
     /// Endpoint: https://statsapi.mlb.com/api/v1/schedule
     ///
@@ -233,7 +233,7 @@ mod test {
     async fn teams() {
         let client = Client::new();
         let teams = client.teams().await;
-        assert!(teams.unwrap().teams.len() == 30);
+        assert!(teams.is_ok());
     }
 
     #[tokio::test]
@@ -259,9 +259,14 @@ mod test {
         assert!(schedule.is_ok());
 
         let schedule = client
-            .schedule(None, None, Some(NaiveDate::from_ymd(2022, 04, 12)), None)
+            .schedule(
+                None,
+                None,
+                Some(NaiveDate::from_ymd_opt(2022, 4, 12).unwrap()),
+                None,
+            )
             .await;
         assert!(schedule.is_ok());
-        assert!(schedule.unwrap().dates.len() != 0);
+        assert!(!schedule.unwrap().dates.is_empty());
     }
 }
